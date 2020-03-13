@@ -102,7 +102,7 @@ class App extends Component {
       .predict(Clarifai.FACE_DETECT_MODEL, this.state.input)
       .then(response => {
         if (response) {
-          fetch("http://localhost:3000/image", {
+          fetch("https://abalone-darkened-celsius.glitch.me/image", {
             method: 'put',
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({

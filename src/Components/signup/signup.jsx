@@ -26,7 +26,7 @@ class SignUp extends React.Component {
     }
 
     onSubmit = () => {
-        fetch('http://localhost:3000/register', {
+        fetch('https://abalone-darkened-celsius.glitch.me/register', {
             method: 'post',
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
