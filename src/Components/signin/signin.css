@@ -1,0 +1,18 @@
+article {
+    width: 350px;
+    background: transparent;
+    display: block;
+    position: relative;
+}
+
+article::after {
+    content: "";
+    background: white;
+    opacity: 0.8;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;
+}
