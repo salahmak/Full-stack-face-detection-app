@@ -1,4 +1,9 @@
 import React from 'react';
+import { OverlayTrigger, Popover } from 'react-bootstrap'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './signup.css'
+
+
 class SignUp extends React.Component {
   constructor(props) {
     super(props);
@@ -43,12 +48,20 @@ class SignUp extends React.Component {
       })
   }
 
-
-
-
-
   render() {
-
+    const popover = (
+      <Popover id="popover-basic">
+        <Popover.Title as="h3">Password requirements</Popover.Title>
+        <Popover.Content>
+          <ul>
+            <li>Atleast 1 capitalized letter</li>
+            <li>Atleast 1 number (0-9)</li>
+            <li>Atleast 1 special character: @,_-.</li>
+            <li>Atleast 8 characters long</li>
+          </ul>
+        </Popover.Content>
+      </Popover>
+    );
     return (
       <article className="br3 ba bg-white b--black-10 mv4 w-100 w-50-m w-25-l mw6 shadow-5 center">
         <main className="pa4 black-80">
@@ -57,6 +70,7 @@ class SignUp extends React.Component {
               <legend className="f1 fw6 ph0 mh0">Register</legend>
               <div className="mt3">
                 <label className="db fw6 lh-copy f6" htmlFor="name">Name</label>
+
                 <input
                   className="pa2 input-reset ba bg-transparent w-100"
                   type="text"
@@ -64,6 +78,8 @@ class SignUp extends React.Component {
                   id="name"
                   onChange={this.onNameChange}
                 />
+
+
               </div>
               <div className="mt3">
                 <label className="db fw6 lh-copy f6" htmlFor="email-address">Email</label>
@@ -77,13 +93,16 @@ class SignUp extends React.Component {
               </div>
               <div className="mv3">
                 <label className="db fw6 lh-copy f6" htmlFor="password">Password</label>
-                <input
-                  className="b pa2 input-reset ba bg-transparent  w-100"
-                  type="password"
-                  name="password"
-                  id="password"
-                  onChange={this.onPasswordChange}
-                />
+                <OverlayTrigger trigger="hover" placement="right" overlay={popover}>
+                  <input
+                    className="b pa2 input-reset ba bg-transparent  w-100"
+                    type="password"
+                    name="password"
+                    id="password"
+                    onChange={this.onPasswordChange}
+                  />
+                </OverlayTrigger>
+
               </div>
             </fieldset>
             <div className="">
