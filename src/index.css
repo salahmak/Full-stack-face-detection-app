@@ -1,7 +1,11 @@
-html {
-  background: linear-gradient(45deg, #004e92, #000428) no-repeat center center fixed;
+body {
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(45deg, #004e92, #000428);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
-  background-size: cover;
 }
