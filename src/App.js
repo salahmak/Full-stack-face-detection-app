@@ -11,6 +11,7 @@ import ImageBox from './Components/imageBox/imageBox.jsx'
 
 
 
+
 const params = {
   particles: {
     number: {

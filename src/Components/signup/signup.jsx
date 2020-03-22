@@ -54,10 +54,7 @@ class SignUp extends React.Component {
         <Popover.Title as="h3">Password requirements</Popover.Title>
         <Popover.Content>
           <ul>
-            <li>Atleast 1 capitalized letter</li>
-            <li>Atleast 1 number (0-9)</li>
-            <li>Atleast 1 special character: @,_-.</li>
-            <li>Atleast 8 characters long</li>
+            <li>Longer than 6 characters</li>
           </ul>
         </Popover.Content>
       </Popover>
@@ -93,7 +90,7 @@ class SignUp extends React.Component {
               </div>
               <div className="mv3">
                 <label className="db fw6 lh-copy f6" htmlFor="password">Password</label>
-                <OverlayTrigger trigger="hover" placement="right" overlay={popover}>
+                <OverlayTrigger trigger="focus" placement="right" overlay={popover}>
                   <input
                     className="b pa2 input-reset ba bg-transparent  w-100"
                     type="password"
