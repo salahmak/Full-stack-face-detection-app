@@ -36,6 +36,7 @@ class SignIn extends React.Component {
             .then(response => response.json())
             .then(user => {
                 if (user.id) {
+                    localStorage.setItem('user', JSON.stringify(user));
                     this.props.loadUser(user)
                     this.props.onRouteChange('home');
                 } else {

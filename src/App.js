@@ -51,6 +51,23 @@ class App extends Component {
   }
 
 
+  componentDidMount() {
+    const data = JSON.parse(localStorage.getItem('user'))
+    if (data) {
+      this.setState({
+        route: "home",
+        isSignedIn: true,
+        user: {
+          id: data.id,
+          name: data.name,
+          email: data.email,
+          entries: data.entries,
+          joined: data.joined
+        }
+      })
+    }
+  }
+
   loadUser = (data) => {
     this.setState({
       user: {
@@ -62,6 +79,7 @@ class App extends Component {
       }
     })
   }
+
 
 
 
