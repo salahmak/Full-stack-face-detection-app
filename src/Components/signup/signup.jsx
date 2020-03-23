@@ -1,6 +1,6 @@
 import React from 'react';
 import { OverlayTrigger, Popover } from 'react-bootstrap'
-import 'bootstrap/dist/css/bootstrap.min.css';
+import Submit from '../submit/submit.jsx'
 import './signup.css'
 
 
@@ -10,7 +10,8 @@ class SignUp extends React.Component {
     this.state = {
       email: '',
       password: '',
-      name: ''
+      name: '',
+      state: 'button'
     }
 
   }
@@ -30,6 +31,8 @@ class SignUp extends React.Component {
   }
 
   onSubmit = () => {
+    this.setState({ state: 'loading' })
+    document.getElementById('error-alert').innerHTML = "";
     fetch('https://nameless-shelf-05479.herokuapp.com/register', {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
@@ -44,6 +47,10 @@ class SignUp extends React.Component {
         if (user.id) {
           this.props.loadUser(user)
           this.props.onRouteChange('home');
+        } else {
+          this.setState({ state: "button" })
+          document.getElementById('error-alert').innerHTML = `
+          <div class="alert alert-danger center" role="alert">Failed to register  please try again</div>`
         }
       })
   }
@@ -60,59 +67,64 @@ class SignUp extends React.Component {
       </Popover>
     );
     return (
-      <article className="br3 ba bg-white b--black-10 mv4 w-100 w-50-m w-25-l mw6 shadow-5 center">
-        <main className="pa4 black-80">
-          <div className="measure">
-            <fieldset id="sign_up" className="ba b--transparent ph0 mh0">
-              <legend className="f1 fw6 ph0 mh0">Register</legend>
-              <div className="mt3">
-                <label className="db fw6 lh-copy f6" htmlFor="name">Name</label>
+      <article className="form-style bg-white b--black-10  w-100 w-50-m w-25-l mw6 shadow-5 center">
+        <div className="pa2 pb0">
+          <legend className="f1 fw6 ph0 mh0 center">Register</legend>
+          <div id="error-alert" className="center"></div>
+        </div>
 
-                <input
-                  className="pa2 input-reset ba bg-transparent w-100"
-                  type="text"
-                  name="name"
-                  id="name"
-                  onChange={this.onNameChange}
-                />
-
-
-              </div>
-              <div className="mt3">
-                <label className="db fw6 lh-copy f6" htmlFor="email-address">Email</label>
-                <input
-                  className="pa2 input-reset ba bg-transparent  w-100"
-                  type="email"
-                  name="email-address"
-                  id="email-address"
-                  onChange={this.onEmailChange}
-                />
-              </div>
-              <div className="mv3">
-                <label className="db fw6 lh-copy f6" htmlFor="password">Password</label>
-                <OverlayTrigger trigger="focus" placement="right" overlay={popover}>
-                  <input
-                    className="b pa2 input-reset ba bg-transparent  w-100"
-                    type="password"
-                    name="password"
-                    id="password"
-                    onChange={this.onPasswordChange}
-                  />
-                </OverlayTrigger>
-
-              </div>
-            </fieldset>
-            <div className="">
+        <main className="pa4 pt0 black-80">
+          <fieldset id="sign_up" className="ba b--transparent ph0 mh0">
+            <div className="mt3">
+              <label className="db fw6 lh-copy f6" htmlFor="name">Name</label>
               <input
-                onClick={this.onSubmit}
-                className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib"
-                type="submit"
-                value="Register"
+                className="pa2 input-reset ba bg-transparent w-100"
+                type="text"
+                name="name"
+                id="name"
+                onChange={this.onNameChange}
+              />
+
+
+            </div>
+            <div className="mt3">
+              <label className="db fw6 lh-copy f6" htmlFor="email-address">Email</label>
+              <input
+                className="pa2 input-reset ba bg-transparent  w-100"
+                type="email"
+                name="email-address"
+                id="email-address"
+                onChange={this.onEmailChange}
               />
             </div>
+            <div className="mv3">
+              <label className="db fw6 lh-copy f6" htmlFor="password">Password</label>
+              <OverlayTrigger trigger="focus" placement="right" overlay={popover}>
+                <input
+                  className="b pa2 input-reset ba bg-transparent  w-100"
+                  type="password"
+                  name="password"
+                  id="password"
+                  onChange={this.onPasswordChange}
+                />
+              </OverlayTrigger>
+
+            </div>
+          </fieldset>
+          <div id="sumbit-btn">
+            <Submit
+              content="Register"
+              onClick={this.onSubmit}
+              state={this.state.state}
+            />
+          </div>
+          <div className="lh-copy mt3 f5">
+            <span>{"Already registered ? "}
+              <span onClick={() => this.onRouteChange('signin')} className="link dim black pointer">Login</span> {" instead"} </span>
           </div>
         </main>
       </article>
+
     );
   }
 }

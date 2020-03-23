@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import './App.css';
 import 'tachyons';
+import '@mdi/font/css/materialdesignicons.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 import LinkForm from './Components/linkForm/linkForm.jsx'
 import Navigation from './Components/navigation/navigation.jsx'
 import SignIn from './Components/signin/signin.jsx'
