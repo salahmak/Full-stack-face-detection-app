@@ -104,8 +104,7 @@ class App extends Component {
 
 
   calcFaceLocation = (data) => {
-    console.log(data)
-    if (data !== null) {
+    if (data) {
       const faceData = data.outputs[0].data.regions
       const boxes = faceData.map((e, i) => {
         return faceData[i].region_info.bounding_box;
@@ -145,7 +144,7 @@ class App extends Component {
     })
       .then(response => response.json())
       .then(response => {
-        if (response !== null) {
+        if (response) {
           fetch('https://nameless-shelf-05479.herokuapp.com/image', {
             method: 'put',
             headers: { 'Content-Type': 'application/json' },
