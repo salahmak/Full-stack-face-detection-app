@@ -105,22 +105,25 @@ class App extends Component {
 
   calcFaceLocation = (data) => {
     console.log(data)
-    const faceData = data.outputs[0].data.regions
-    const boxes = faceData.map((e, i) => {
-      return faceData[i].region_info.bounding_box;
-    })
-    const image = document.getElementById('inputImage')
-    const width = Number(image.width);
-    const height = Number(image.height)
+    if (data !== null) {
+      const faceData = data.outputs[0].data.regions
+      const boxes = faceData.map((e, i) => {
+        return faceData[i].region_info.bounding_box;
+      })
+      const image = document.getElementById('inputImage')
+      const width = Number(image.width);
+      const height = Number(image.height)
 
-    return boxes.map((e, i) => {
-      return {
-        top: boxes[i].top_row * height,
-        left: boxes[i].left_col * width,
-        right: width - (boxes[i].right_col * width),
-        bottom: height - (boxes[i].bottom_row * height)
-      }
-    })
+      return boxes.map((e, i) => {
+        return {
+          top: boxes[i].top_row * height,
+          left: boxes[i].left_col * width,
+          right: width - (boxes[i].right_col * width),
+          bottom: height - (boxes[i].bottom_row * height)
+        }
+      })
+    }
+
   }
 
   displayFaceBox = (box) => {
