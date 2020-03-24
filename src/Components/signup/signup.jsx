@@ -11,7 +11,7 @@ class SignUp extends React.Component {
       email: '',
       password: '',
       name: '',
-      state: 'button'
+      buttonState: 'button'
     }
 
   }
@@ -31,7 +31,7 @@ class SignUp extends React.Component {
   }
 
   onSubmit = () => {
-    this.setState({ state: 'loading' })
+    this.setState({ buttonState: 'loading' })
     document.getElementById('error-alert').innerHTML = "";
     fetch('https://nameless-shelf-05479.herokuapp.com/register', {
       method: 'post',
@@ -52,7 +52,7 @@ class SignUp extends React.Component {
           this.props.loadUser(user)
           this.props.onRouteChange('home');
         } else {
-          this.setState({ state: "button" })
+          this.setState({ buttonState: "button" })
           document.getElementById('error-alert').innerHTML = `
           <div className="alert alert-danger center" role="alert">Failed to register  please try again</div>`
         }
@@ -60,6 +60,9 @@ class SignUp extends React.Component {
   }
 
   render() {
+    const {onNameChange, onEmailChange, onPasswordChange, onSubmit} = this;
+    const {buttonState} = this.state;
+    const {onRouteChange} = this.props;
     const popover = (
       <Popover id="popover-basic">
         <Popover.Title as="h3">Password requirements</Popover.Title>
@@ -86,7 +89,7 @@ class SignUp extends React.Component {
                 type="text"
                 name="name"
                 id="name"
-                onChange={this.onNameChange}
+                onChange={onNameChange}
               />
 
 
@@ -98,7 +101,7 @@ class SignUp extends React.Component {
                 type="email"
                 name="email-address"
                 id="email-address"
-                onChange={this.onEmailChange}
+                onChange={onEmailChange}
               />
             </div>
             <div className="mv3">
@@ -109,7 +112,7 @@ class SignUp extends React.Component {
                   type="password"
                   name="password"
                   id="password"
-                  onChange={this.onPasswordChange}
+                  onChange={onPasswordChange}
                 />
               </OverlayTrigger>
 
@@ -118,13 +121,13 @@ class SignUp extends React.Component {
           <div id="sumbit-btn">
             <Submit
               content="Register"
-              onClick={this.onSubmit}
-              state={this.state.state}
+              onClick={onSubmit}
+              state={buttonState}
             />
           </div>
           <div className="lh-copy mt3 f5">
             <span>{"Already registered ? "}
-              <span onClick={() => this.onRouteChange('signin')} className="link dim black pointer">Login</span> {" instead"} </span>
+              <span onClick={() => onRouteChange('signin')} className="link dim black pointer">Login</span> {" instead"} </span>
           </div>
         </main>
       </article>

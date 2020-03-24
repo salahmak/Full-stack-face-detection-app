@@ -7,7 +7,7 @@ class SignIn extends React.Component {
         this.state = {
             signInEmail: '',
             signInPassword: '',
-            state: 'button'
+            buttonState: 'button'
         }
     }
 
@@ -53,7 +53,9 @@ class SignIn extends React.Component {
 
 
     render() {
-        const { onRouteChange } = this.props
+        const { onEmailChange, onPasswordChange, onSubmit } = this;
+        const { buttonState } = this.state;
+        const { onRouteChange } = this.props;
         return (
             <article className="form-style bg-white b--black-10  w-100 w-50-m w-25-l mw6 shadow-5 center">
                 <div className="pa2 pb0">
@@ -71,7 +73,7 @@ class SignIn extends React.Component {
                                 type="email"
                                 name="email-address"
                                 id="email-address"
-                                onChange={this.onEmailChange}
+                                onChange={onEmailChange}
                             />
                         </div>
                         <div className="mv3">
@@ -82,7 +84,7 @@ class SignIn extends React.Component {
                                 type="password"
                                 name="password"
                                 id="password"
-                                onChange={this.onPasswordChange}
+                                onChange={onPasswordChange}
                             />
 
 
@@ -91,8 +93,8 @@ class SignIn extends React.Component {
                     <div className="">
                         <Submit
                             content="Sign in"
-                            onClick={this.onSubmit}
-                            state={this.state.state}
+                            onClick={onSubmit}
+                            state={buttonState}
                         />
                     </div>
                     <div className="lh-copy mt3 f5">
