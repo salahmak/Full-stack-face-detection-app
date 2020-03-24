@@ -11,6 +11,7 @@ import SignUp from './Components/signup/signup.jsx'
 import Rank from './Components/rank/rank.jsx'
 import Particles from 'react-particles-js'
 import ImageBox from './Components/imageBox/imageBox.jsx'
+import Loader from './Components/loader/loader.jsx'
 
 
 
@@ -18,17 +19,17 @@ import ImageBox from './Components/imageBox/imageBox.jsx'
 const params = {
   particles: {
     number: {
-      value: 30,
+      value: 40,
       density: {
         enable: true,
         value_area: 800
       }
     }
   }
-
 }
 
 const initialState = {
+  pageState: 'ready',
   input: '',
   imageUrl: '',
   box: [],
@@ -43,6 +44,12 @@ const initialState = {
   }
 }
 
+const initialStorage = initialState.user;
+
+localStorage.setItem('users', JSON.stringify(initialStorage))
+
+
+
 
 class App extends Component {
   constructor(props) {
@@ -52,18 +59,33 @@ class App extends Component {
 
 
   componentDidMount() {
+    this.setState({ pageState: 'loading' })
     const data = JSON.parse(localStorage.getItem('user'))
     if (data) {
+      fetch(`https://nameless-shelf-05479.herokuapp.com/profile/${data.id}`)
+        .then(response => response.json())
+        .then(user => {
+          localStorage.setItem('user', JSON.stringify(user))
+
+          this.setState({
+            route: "home",
+            pageState: 'ready',
+            isSignedIn: true,
+            user: {
+              id: user.id,
+              name: user.name,
+              email: user.email,
+              entries: user.entries,
+              joined: user.joined
+            }
+          })
+        })
+    } else {
       this.setState({
-        route: "home",
-        isSignedIn: true,
-        user: {
-          id: data.id,
-          name: data.name,
-          email: data.email,
-          entries: data.entries,
-          joined: data.joined
-        }
+        route: "register",
+        pageState: 'ready',
+        isSignedIn: false,
+        user: initialState.user
       })
     }
   }
@@ -100,11 +122,7 @@ class App extends Component {
         right: width - (boxes[i].right_col * width),
         bottom: height - (boxes[i].bottom_row * height)
       }
-
-
     })
-
-
   }
 
   displayFaceBox = (box) => {
@@ -139,18 +157,17 @@ class App extends Component {
               this.setState(Object.assign(this.state.user, { entries: count }))
             })
             .catch(console.log)
-
         }
         this.displayFaceBox(this.calcFaceLocation(response))
       })
       .catch(err => console.log(err));
   }
 
-
-
   onRouteChange = (route) => {
     if (route === 'signout') {
       this.setState(initialState)
+      localStorage.setItem('user', JSON.stringify(initialState.user))
+
     } else if (route === 'home') {
       this.setState({ isSignedIn: true })
     }
@@ -159,34 +176,34 @@ class App extends Component {
 
 
   render() {
-    const { isSignedIn, imageUrl, route, box } = this.state;
-    return (
-      <>
-        <Particles className="particles" params={params} />
-
-
-
-        <Navigation isSignedIn={isSignedIn} onRouteChange={this.onRouteChange} />
-
-        {route === 'home'
-          ? <>
-            <Rank name={this.state.user.name} entries={this.state.user.entries} />
-            <LinkForm inputChange={this.onInputChange} onSubmit={this.onSubmit} />
-            <ImageBox box={box} imageSrc={imageUrl} />
-          </>
-
-          : (
-            route === 'signin'
-              ? <SignIn loadUser={this.loadUser} onRouteChange={this.onRouteChange} />
-              : <SignUp loadUser={this.loadUser} onRouteChange={this.onRouteChange} />
-          )
-
-        }
-
-
-
-      </>
-    );
+    const { isSignedIn, imageUrl, route, box, pageState } = this.state;
+    if (pageState === 'ready') {
+      return (
+        <>
+          <Particles className="particles" params={params} />
+          <Navigation isSignedIn={isSignedIn} onRouteChange={this.onRouteChange} />
+          {route === 'home'
+            ? <>
+              <Rank name={this.state.user.name} entries={this.state.user.entries} />
+              <LinkForm inputChange={this.onInputChange} onSubmit={this.onSubmit} />
+              <ImageBox box={box} imageSrc={imageUrl} />
+            </>
+            : (
+              route === 'signin'
+                ? <SignIn loadUser={this.loadUser} onRouteChange={this.onRouteChange} />
+                : <SignUp loadUser={this.loadUser} onRouteChange={this.onRouteChange} />
+            )
+          }
+        </>
+      )
+    } else if (pageState === 'loading') {
+      return (
+        <>
+          <Particles className="particles" params={params} />
+          <Loader />
+        </>
+      )
+    }
   }
 }
 

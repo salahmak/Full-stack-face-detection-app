@@ -3,6 +3,7 @@ import Logo from './logo.jsx'
 
 const Navigation = ({ onRouteChange, isSignedIn }) => {
     if (isSignedIn) {
+
         return (
             <nav style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <Logo />
@@ -10,6 +11,7 @@ const Navigation = ({ onRouteChange, isSignedIn }) => {
             </nav>
         );
     } else {
+
         return (
             <nav style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <Logo />
