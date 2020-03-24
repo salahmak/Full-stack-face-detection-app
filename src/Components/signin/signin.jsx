@@ -23,7 +23,7 @@ class SignIn extends React.Component {
     }
 
     onSubmit = () => {
-        this.setState({ state: "loading" })
+        this.setState({ buttonState: "loading" })
         document.getElementById('error-alert').innerHTML = ""
         fetch('https://nameless-shelf-05479.herokuapp.com/signin', {
             method: 'post',
@@ -40,9 +40,9 @@ class SignIn extends React.Component {
                     this.props.loadUser(user)
                     this.props.onRouteChange('home');
                 } else {
-                    this.setState({ state: "button" })
+                    this.setState({ buttonState: "button" })
                     document.getElementById('error-alert').innerHTML = `
-          <div className="alert alert-danger center" role="alert">Please check your email / password and try again</div>`
+          <div class="alert alert-danger center" role="alert">Please check your email / password and try again</div>`
                 }
             })
     }
@@ -64,42 +64,49 @@ class SignIn extends React.Component {
                 </div>
 
                 <main className="pa4 pt0 black-80">
-                    <fieldset id="sign_up" className="ba b--transparent ph0 mh0">
+                    <form>
+                        <fieldset id="sign_up" className="ba b--transparent ph0 mh0">
 
-                        <div className="mt3">
-                            <label className="db fw6 lh-copy f6" htmlFor="email-address">Email</label>
-                            <input
-                                className="pa2 input-reset ba bg-transparent  w-100"
-                                type="email"
-                                name="email-address"
-                                id="email-address"
-                                onChange={onEmailChange}
+                            <div className="mt3">
+                                <label className="db fw6 lh-copy f6" htmlFor="email-address">Email</label>
+                                <input
+                                    className="pa2 input-reset ba bg-transparent  w-100"
+                                    type="email"
+                                    name="email-address"
+                                    id="email-address"
+                                    tabIndex="1"
+                                    onChange={onEmailChange}
+                                />
+                            </div>
+                            <div className="mv3">
+                                <label className="db fw6 lh-copy f6" htmlFor="password">Password</label>
+
+                                <input
+                                    className="b pa2 input-reset ba bg-transparent  w-100"
+                                    type="password"
+                                    name="password"
+                                    id="password"
+                                    tabIndex="2"
+                                    autoComplete=""
+                                    onChange={onPasswordChange}
+                                />
+
+
+                            </div>
+                        </fieldset>
+                        <div className="">
+                            <Submit
+                                content="Sign in"
+                                tabIndex="3"
+                                onClick={onSubmit}
+                                state={buttonState}
                             />
                         </div>
-                        <div className="mv3">
-                            <label className="db fw6 lh-copy f6" htmlFor="password">Password</label>
+                    </form>
 
-                            <input
-                                className="b pa2 input-reset ba bg-transparent  w-100"
-                                type="password"
-                                name="password"
-                                id="password"
-                                onChange={onPasswordChange}
-                            />
-
-
-                        </div>
-                    </fieldset>
-                    <div className="">
-                        <Submit
-                            content="Sign in"
-                            onClick={onSubmit}
-                            state={buttonState}
-                        />
-                    </div>
                     <div className="lh-copy mt3 f5">
                         <span>{"First time here ? Why not "}
-                            <span onClick={() => onRouteChange('register')} className="link dim black pointer">Register</span> {" ?"} </span>
+                            <span onClick={() => onRouteChange('register')} className="link underline dim black pointer">Register</span> {" ?"} </span>
                     </div>
                 </main>
             </article>

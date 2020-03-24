@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
 import 'tachyons';
-import '@mdi/font/css/materialdesignicons.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import LinkForm from './Components/linkForm/linkForm.jsx'
@@ -166,7 +165,7 @@ class App extends Component {
   onRouteChange = (route) => {
     if (route === 'signout') {
       this.setState(initialState)
-      localStorage.setItem('user', JSON.stringify(initialState.user))
+      localStorage.removeItem('user')
 
     } else if (route === 'home') {
       this.setState({ isSignedIn: true })
@@ -177,21 +176,22 @@ class App extends Component {
 
   render() {
     const { isSignedIn, imageUrl, route, box, pageState } = this.state;
+    const { onInputChange, onRouteChange, onSubmit, loadUser } = this;
     if (pageState === 'ready') {
       return (
         <>
           <Particles className="particles" params={params} />
-          <Navigation isSignedIn={isSignedIn} onRouteChange={this.onRouteChange} />
+          <Navigation isSignedIn={isSignedIn} onRouteChange={onRouteChange} />
           {route === 'home'
             ? <>
               <Rank name={this.state.user.name} entries={this.state.user.entries} />
-              <LinkForm inputChange={this.onInputChange} onSubmit={this.onSubmit} />
+              <LinkForm inputChange={onInputChange} onSubmit={onSubmit} />
               <ImageBox box={box} imageSrc={imageUrl} />
             </>
             : (
               route === 'signin'
-                ? <SignIn loadUser={this.loadUser} onRouteChange={this.onRouteChange} />
-                : <SignUp loadUser={this.loadUser} onRouteChange={this.onRouteChange} />
+                ? <SignIn loadUser={loadUser} onRouteChange={onRouteChange} />
+                : <SignUp loadUser={loadUser} onRouteChange={onRouteChange} />
             )
           }
         </>

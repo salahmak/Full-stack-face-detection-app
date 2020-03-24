@@ -54,15 +54,15 @@ class SignUp extends React.Component {
         } else {
           this.setState({ buttonState: "button" })
           document.getElementById('error-alert').innerHTML = `
-          <div className="alert alert-danger center" role="alert">Failed to register  please try again</div>`
+          <div class="alert alert-danger center" role="alert">Failed to register  please try again</div>`
         }
       })
   }
 
   render() {
-    const {onNameChange, onEmailChange, onPasswordChange, onSubmit} = this;
-    const {buttonState} = this.state;
-    const {onRouteChange} = this.props;
+    const { onNameChange, onEmailChange, onPasswordChange, onSubmit } = this;
+    const { buttonState } = this.state;
+    const { onRouteChange } = this.props;
     const popover = (
       <Popover id="popover-basic">
         <Popover.Title as="h3">Password requirements</Popover.Title>
@@ -81,53 +81,61 @@ class SignUp extends React.Component {
         </div>
 
         <main className="pa4 pt0 black-80">
-          <fieldset id="sign_up" className="ba b--transparent ph0 mh0">
-            <div className="mt3">
-              <label className="db fw6 lh-copy f6" htmlFor="name">Name</label>
-              <input
-                className="pa2 input-reset ba bg-transparent w-100"
-                type="text"
-                name="name"
-                id="name"
-                onChange={onNameChange}
-              />
-
-
-            </div>
-            <div className="mt3">
-              <label className="db fw6 lh-copy f6" htmlFor="email-address">Email</label>
-              <input
-                className="pa2 input-reset ba bg-transparent  w-100"
-                type="email"
-                name="email-address"
-                id="email-address"
-                onChange={onEmailChange}
-              />
-            </div>
-            <div className="mv3">
-              <label className="db fw6 lh-copy f6" htmlFor="password">Password</label>
-              <OverlayTrigger trigger="focus" placement="right" overlay={popover}>
+          <form>
+            <fieldset id="sign_up" className="ba b--transparent ph0 mh0">
+              <div className="mt3">
+                <label className="db fw6 lh-copy f6" htmlFor="name">Name</label>
                 <input
-                  className="b pa2 input-reset ba bg-transparent  w-100"
-                  type="password"
-                  name="password"
-                  id="password"
-                  onChange={onPasswordChange}
+                  className="pa2 input-reset ba bg-transparent w-100"
+                  type="text"
+                  name="name"
+                  id="name"
+                  tabIndex="1"
+                  onChange={onNameChange}
                 />
-              </OverlayTrigger>
 
+
+              </div>
+              <div className="mt3">
+                <label className="db fw6 lh-copy f6" htmlFor="email-address">Email</label>
+                <input
+                  className="pa2 input-reset ba bg-transparent  w-100"
+                  type="email"
+                  name="email-address"
+                  id="email-address"
+                  tabIndex="2"
+                  onChange={onEmailChange}
+                />
+              </div>
+              <div className="mv3">
+                <label className="db fw6 lh-copy f6" htmlFor="password">Password</label>
+                <OverlayTrigger trigger="focus" placement="right" overlay={popover}>
+                  <input
+                    className="b pa2 input-reset ba bg-transparent  w-100"
+                    type="password"
+                    name="password"
+                    id="password"
+                    tabIndex="3"
+                    autoComplete="current-password"
+                    onChange={onPasswordChange}
+                  />
+                </OverlayTrigger>
+
+              </div>
+            </fieldset>
+            <div id="sumbit-btn">
+              <Submit
+                content="Register"
+                tabIndex="4"
+                onClick={onSubmit}
+                state={buttonState}
+              />
             </div>
-          </fieldset>
-          <div id="sumbit-btn">
-            <Submit
-              content="Register"
-              onClick={onSubmit}
-              state={buttonState}
-            />
-          </div>
+          </form>
+
           <div className="lh-copy mt3 f5">
             <span>{"Already registered ? "}
-              <span onClick={() => onRouteChange('signin')} className="link dim black pointer">Login</span> {" instead"} </span>
+              <span onClick={() => onRouteChange('signin')} className="link dim underline black pointer">Login</span> {" instead"} </span>
           </div>
         </main>
       </article>
