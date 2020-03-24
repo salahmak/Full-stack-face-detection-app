@@ -5,8 +5,8 @@ class Loader extends Component {
 
     render() {
         return (
-            <div class="loader-wrapper">
-                <div class="lds-dual-ring"></div>
+            <div className="loader-wrapper">
+                <div className="lds-dual-ring"></div>
             </div>
         );
     }

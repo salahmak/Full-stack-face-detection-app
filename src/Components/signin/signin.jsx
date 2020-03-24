@@ -42,7 +42,7 @@ class SignIn extends React.Component {
                 } else {
                     this.setState({ state: "button" })
                     document.getElementById('error-alert').innerHTML = `
-          <div class="alert alert-danger center" role="alert">Please check your email / password and try again</div>`
+          <div className="alert alert-danger center" role="alert">Please check your email / password and try again</div>`
                 }
             })
     }

@@ -54,7 +54,7 @@ class SignUp extends React.Component {
         } else {
           this.setState({ state: "button" })
           document.getElementById('error-alert').innerHTML = `
-          <div class="alert alert-danger center" role="alert">Failed to register  please try again</div>`
+          <div className="alert alert-danger center" role="alert">Failed to register  please try again</div>`
         }
       })
   }

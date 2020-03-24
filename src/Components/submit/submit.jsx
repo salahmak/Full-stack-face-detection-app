@@ -17,7 +17,7 @@ class Submit extends React.Component {
 
 
                 <div className="btn btn-light border-1 border-dark">
-                    <i class="mdi mdi-loading mdi-spin" aria-hidden="true"></i> Loading
+                    <i className="mdi mdi-loading mdi-spin" aria-hidden="true"></i> Loading
                 </div>
 
             )
