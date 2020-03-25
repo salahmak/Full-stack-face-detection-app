@@ -129,6 +129,8 @@ class App extends Component {
   }
 
   onInputChange = (e) => {
+    const imageBtn = document.getElementById('image-btn');
+    e.target.value !== '' ? imageBtn.disabled = false : imageBtn.disabled = true;
     this.setState({ input: e.target.value })
   }
 
