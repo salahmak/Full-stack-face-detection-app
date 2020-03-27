@@ -11,7 +11,7 @@ const LinkForm = ({ inputChange, onSubmit }) => {
 
             <div className="center">
                 <input placeHolder="Paste your image link here then click Go" onChange={inputChange} className="link-form f6 pa2" type="text" />
-                <button onClick={onSubmit} id="image-btn" className="w-15 br1 grow f4 ph4 pv2 dib white bg-light-purple" disabled> {'Go'} </button>
+                <button onClick={onSubmit} id="image-btn" className="w-15 br1 grow f4 ph4 pv2 dib white bg-light-purple"> {'Go'} </button>
             </div>
 
         </div>
