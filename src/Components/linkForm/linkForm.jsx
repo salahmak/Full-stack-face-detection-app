@@ -1,4 +1,5 @@
 import React from 'react';
+import './form.css';
 
 const LinkForm = ({ inputChange, onSubmit }) => {
 
@@ -9,7 +10,7 @@ const LinkForm = ({ inputChange, onSubmit }) => {
             </p>
 
             <div className="center">
-                <input placeHolder="Paste your image link here then click go" onChange={inputChange} className="f4 pa2 w-50" type="text" />
+                <input placeHolder="Paste your image link here then click Go" onChange={inputChange} className="link-form f6 pa2" type="text" />
                 <button onClick={onSubmit} id="image-btn" className="w-15 br1 grow f4 ph4 pv2 dib white bg-light-purple" disabled> {'Go'} </button>
             </div>
 
